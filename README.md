@@ -21,7 +21,7 @@ To get a local copy up and running follow these simple example steps.
 - go to the repository folder in your command prompt.
 - run `bundle install`.
 
-## Authors
+## Author
 
 👤 **Shahier Nashaat**
 
