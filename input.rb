@@ -1,5 +1,5 @@
 class Input
   def read
-    data = gets.chomp
+    gets.chomp
   end
 end
