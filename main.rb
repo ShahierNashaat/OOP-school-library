@@ -5,7 +5,7 @@ require './rental'
 require './app'
 
 class Main
-  def initialize 
+  def initialize
     @app = App.new
   end
 
@@ -31,7 +31,6 @@ class Main
     puts '6 - List all rentals for a given person id'
     puts '7 - Exit'
   end
-
 end
 
 main = Main.new
