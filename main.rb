@@ -1,12 +1,10 @@
-require './student'
-require './teacher'
-require './book'
-require './rental'
 require './app'
+require './input'
 
 class Main
   def initialize
     @app = App.new
+    @input = Input.new
   end
 
   def run
@@ -14,7 +12,7 @@ class Main
     puts 'Welcome to School Library App!'
     while user_input != '7'
       options
-      user_input = gets.chomp
+      user_input = @input.read
       @app.options_cases(user_input)
     end
     puts 'Thank you for using this app!'

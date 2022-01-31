@@ -2,12 +2,14 @@ require './student'
 require './teacher'
 require './book'
 require './rental'
+require './input'
 
 class App
   def initialize
     @books = []
     @persons = []
     @rentals = []
+    @input = Input.new
   end
 
   def options_cases(user_input)
@@ -41,7 +43,7 @@ class App
 
   def create_person
     print 'Do you want to create a student (1) or a teacher (2)? [Input the number]: '
-    student_or_teacher = gets.chomp
+    student_or_teacher = @input.read
 
     case student_or_teacher
     when '1'
@@ -58,13 +60,13 @@ class App
 
   def create_student
     print 'Age: '
-    age = gets.chomp
+    age = @input.read
 
     print 'Name: '
-    name = gets.chomp
+    name = @input.read
 
     print 'Has parent permission? [Y/N]: '
-    parent_permission = gets.chomp
+    parent_permission = @input.read
 
     unless parent_permission.upcase == 'Y' || parent_permission.upcase == 'N'
       puts 'Wrong Input!'
@@ -77,22 +79,22 @@ class App
 
   def create_teacher
     print 'Age: '
-    age = gets.chomp
+    age = @input.read
 
     print 'Name: '
-    name = gets.chomp
+    name = @input.read
 
     print 'Specialization: '
-    specialization = gets.chomp
+    specialization = @input.read
     @persons.push(Teacher.new(specialization: specialization, age: age.to_i, name: name))
   end
 
   def create_book
     print 'Title: '
-    title = gets.chomp
+    title = @input.read
 
     print 'Author: '
-    author = gets.chomp
+    author = @input.read
 
     @books.push(Book.new(title, author))
 
@@ -106,7 +108,7 @@ class App
       puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
     end
 
-    book_index = gets.chomp
+    book_index = @input.read
 
     puts 'Select a person from the following list by number (not id)'
 
@@ -114,7 +116,7 @@ class App
       puts "#{index}) Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
 
-    person_index = gets.chomp
+    person_index = @input.read
 
     if book_index.to_i >= @books.length || person_index.to_i >= @persons.length
       puts 'Wrong Index!'
@@ -122,7 +124,7 @@ class App
     end
 
     print 'Date: '
-    date = gets.chomp
+    date = @input.read
 
     @rentals.push(Rental.new(date, @books[book_index.to_i], @persons[person_index.to_i]))
 
@@ -131,7 +133,7 @@ class App
 
   def list_all_rental_by_id
     print 'ID of person: '
-    person_id = gets.chomp
+    person_id = @input.read
 
     puts 'Rentals:'
     @rentals.each do |rental|
