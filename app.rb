@@ -2,13 +2,15 @@ require './student'
 require './teacher'
 require './book'
 require './rental'
+require './data_controller'
 require './input'
 
 class App
+  include DataController
   def initialize
-    @books = []
-    @persons = []
-    @rentals = []
+    @books = load_books
+    @persons = load_peoble
+    @rentals = load_rentals
     @input = Input.new
   end
 
