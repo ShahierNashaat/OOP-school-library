@@ -9,7 +9,7 @@ module DataController
     file = 'people.json'
     data = []
     if File.exist?(file) && File.read(file) != ''
-      JSON.parse(File.read(file).to_json).each do |element|
+      JSON.parse(File.read(file)).each do |element|
         if element.data_type == 'Teacher'
           data.push(Teacher.new(id: element.id, age: element.age, specialization: element.specialization,
                                 name: element.name))
@@ -26,7 +26,7 @@ module DataController
     file = 'books.json'
     data = []
     if File.exist?(file) && File.read(file) != ''
-      JSON.parse(File.read(file).to_json).each do |element|
+      JSON.parse(File.read(file)).each do |element|
         data.push(Book.new(element.title, element.author))
       end
     end
@@ -45,12 +45,42 @@ module DataController
     file = 'rentals.json'
     data = []
     if File.exist?(file) && File.read(file) != ''
-      JSON.parse(File.read(file).to_json).each do |element|
+      JSON.parse(File.read(file)).each do |element|
         person = get_person_by_id(element.person_id)
         book = get_book_by_title(element.book_title)
         data.push(Rental.new(element.date, book, person))
       end
     end
     data
+  end
+
+  def save_person
+    data = []
+    @persons.each do |person|
+      if person.instance_of?(Teacher)
+        data.push({ id: person.id, age: person.age, name: person.name,
+          specialization: person.specialization, data_type: person.class })
+      else
+        data.push({ id: person.id, age: person.age, name: person.name,
+          parent_permission: person.parent_permission, data_type: person.class })
+      end
+    end
+        File.write("people.json", JSON.generate(data))
+  end
+
+  def save_books
+    data = []
+    @books.each do |book|
+      data.push({title: book.title, author: book.author})
+    end
+    File.write("books.json", JSON.generate(data))
+  end
+
+  def save_rental
+    data = []
+    @rentals.each do |rental|
+      data.push({date: rental.date, book_title: rental.book.title, person_id: rental.person.id})
+    end
+    File.write("rentals.json", JSON.generate(data))
   end
 end

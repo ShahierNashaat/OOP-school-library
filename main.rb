@@ -1,5 +1,6 @@
 require './app'
 require './input'
+require './data_controller'
 
 class Main
   def initialize
@@ -16,6 +17,10 @@ class Main
       @app.options_cases(user_input)
     end
     puts 'Thank you for using this app!'
+
+    @app.save_person
+    @app.save_books
+    @app.save_rental
   end
 
   def options
