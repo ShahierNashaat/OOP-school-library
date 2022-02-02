@@ -1,16 +1,14 @@
 require './person'
 
-
 describe Person do
-
   before :each do
-    @person = Person.new age:9 ,name: 'shahier', id: nil
+    @person = Person.new age: 9, name: 'shahier', id: nil
 
-    @person_two = Person.new age:15 ,name: 'Karel van Oordt Dellepiane', id: nil
+    @person_two = Person.new age: 15, name: 'Karel van Oordt Dellepiane', id: nil
   end
 
   it 'should validate the age of the person created' do
-    expect(@person.age).to eq 9 
+    expect(@person.age).to eq 9
     expect(@person_two.age).to eq 15
   end
 
@@ -28,5 +26,4 @@ describe Person do
     expect(@person.can_use_services?).to eq true
     expect(@person_two.can_use_services?).to eq true
   end
-
 end
